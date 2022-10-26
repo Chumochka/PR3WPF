@@ -1,0 +1,15 @@
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\ConsoleWPF.exe.config
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\ConsoleWPF.exe
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\ConsoleWPF.pdb
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\EntityFramework.dll
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\HashPasswords.dll
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\HashPasswords.pdb
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\EntityFramework.xml
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\obj\Debug\ConsoleWPF.csprojAssemblyReference.cache
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\obj\Debug\ConsoleWPF.csproj.CoreCompileInputs.cache
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\obj\Debug\ConsoleWPF.csproj.CopyComplete
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\obj\Debug\ConsoleWPF.exe
+C:\Users\Miller\source\repos\WPFPR3\ConsoleWPF\obj\Debug\ConsoleWPF.pdb
