@@ -1,5 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="loginModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="MasterBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Calls">
+    <Key>
+      <PropertyRef Name="ID_Call" />
+    </Key>
+    <Property Name="ID_Call" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Problem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_Master" Type="Int32" />
+    <Property Name="IsDone" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Masters" Relationship="Self.FK_Calls_Masters" FromRole="Calls" ToRole="Masters" />
+  </EntityType>
+  <EntityType Name="Masters">
+    <Key>
+      <PropertyRef Name="ID_Master" />
+    </Key>
+    <Property Name="ID_Master" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="65" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Calls" Relationship="Self.FK_Calls_Masters" FromRole="Masters" ToRole="Calls" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Masters" FromRole="Masters" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID_Order" />
+    </Key>
+    <Property Name="ID_Order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Master" Type="Int32" Nullable="false" />
+    <Property Name="ID_Part" Type="Int32" Nullable="false" />
+    <Property Name="ID_Warehouse_employee" Type="Int32" Nullable="false" />
+    <Property Name="ID_Supplier" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Masters" Relationship="Self.FK_Orders_Masters" FromRole="Orders" ToRole="Masters" />
+    <NavigationProperty Name="Parts" Relationship="Self.FK_Orders_Parts" FromRole="Orders" ToRole="Parts" />
+    <NavigationProperty Name="Suppliers" Relationship="Self.FK_Orders_Suppliers" FromRole="Orders" ToRole="Suppliers" />
+    <NavigationProperty Name="Warehouse_employees" Relationship="Self.FK_Orders_Warehouse_employees" FromRole="Orders" ToRole="Warehouse_employees" />
+  </EntityType>
+  <EntityType Name="Parts">
+    <Key>
+      <PropertyRef Name="ID_Part" />
+    </Key>
+    <Property Name="ID_Part" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Parts" FromRole="Parts" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Supplier_Type">
+    <Key>
+      <PropertyRef Name="ID_Supplier_Type" />
+    </Key>
+    <Property Name="ID_Supplier_Type" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Suppliers" Relationship="Self.FK_Suppliers_Supplier_Type" FromRole="Supplier_Type" ToRole="Suppliers" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="ID_Supplier" />
+    </Key>
+    <Property Name="ID_Supplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="INN" Type="Int32" Nullable="false" />
+    <Property Name="ID_Supplier_Type" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Suppliers" FromRole="Suppliers" ToRole="Orders" />
+    <NavigationProperty Name="Supplier_Type" Relationship="Self.FK_Suppliers_Supplier_Type" FromRole="Suppliers" ToRole="Supplier_Type" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -10,18 +78,123 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
-  <EntityType Name="Users">
+  <EntityType Name="Warehouse_employees">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="ID_Warehouse_employee" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="65" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_Warehouse_employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="65" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Warehouse_employees" FromRole="Warehouse_employees" ToRole="Orders" />
   </EntityType>
-  <EntityContainer Name="loginEntities" annotation:LazyLoadingEnabled="true">
+  <Association Name="FK_Calls_Masters">
+    <End Role="Masters" Type="Self.Masters" Multiplicity="0..1" />
+    <End Role="Calls" Type="Self.Calls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Masters">
+        <PropertyRef Name="ID_Master" />
+      </Principal>
+      <Dependent Role="Calls">
+        <PropertyRef Name="ID_Master" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Masters">
+    <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Masters">
+        <PropertyRef Name="ID_Master" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Master" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Parts">
+    <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parts">
+        <PropertyRef Name="ID_Part" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Part" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Suppliers">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="ID_Supplier" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Supplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Warehouse_employees">
+    <End Role="Warehouse_employees" Type="Self.Warehouse_employees" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse_employees">
+        <PropertyRef Name="ID_Warehouse_employee" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Master" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suppliers_Supplier_Type">
+    <End Role="Supplier_Type" Type="Self.Supplier_Type" Multiplicity="1" />
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier_Type">
+        <PropertyRef Name="ID_Supplier_Type" />
+      </Principal>
+      <Dependent Role="Suppliers">
+        <PropertyRef Name="ID_Supplier_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MasterEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Calls" EntityType="Self.Calls" />
+    <EntitySet Name="Masters" EntityType="Self.Masters" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Parts" EntityType="Self.Parts" />
+    <EntitySet Name="Supplier_Type" EntityType="Self.Supplier_Type" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="Warehouse_employees" EntityType="Self.Warehouse_employees" />
+    <AssociationSet Name="FK_Calls_Masters" Association="Self.FK_Calls_Masters">
+      <End Role="Masters" EntitySet="Masters" />
+      <End Role="Calls" EntitySet="Calls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Masters" Association="Self.FK_Orders_Masters">
+      <End Role="Masters" EntitySet="Masters" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Parts" Association="Self.FK_Orders_Parts">
+      <End Role="Parts" EntitySet="Parts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Suppliers" Association="Self.FK_Orders_Suppliers">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Warehouse_employees" Association="Self.FK_Orders_Warehouse_employees">
+      <End Role="Warehouse_employees" EntitySet="Warehouse_employees" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suppliers_Supplier_Type" Association="Self.FK_Suppliers_Supplier_Type">
+      <End Role="Supplier_Type" EntitySet="Supplier_Type" />
+      <End Role="Suppliers" EntitySet="Suppliers" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

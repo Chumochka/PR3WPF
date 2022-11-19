@@ -1,5 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Хранилище loginModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="Хранилище MasterBDModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Calls">
+    <Key>
+      <PropertyRef Name="ID_Call" />
+    </Key>
+    <Property Name="ID_Call" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Adress" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Problem" Type="text" Nullable="false" />
+    <Property Name="ID_Master" Type="int" />
+    <Property Name="IsDone" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Masters">
+    <Key>
+      <PropertyRef Name="ID_Master" />
+    </Key>
+    <Property Name="ID_Master" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lastname" Type="varchar" MaxLength="50" />
+    <Property Name="Specialization" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="65" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID_Order" />
+    </Key>
+    <Property Name="ID_Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Master" Type="int" Nullable="false" />
+    <Property Name="ID_Part" Type="int" Nullable="false" />
+    <Property Name="ID_Warehouse_employee" Type="int" Nullable="false" />
+    <Property Name="ID_Supplier" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parts">
+    <Key>
+      <PropertyRef Name="ID_Part" />
+    </Key>
+    <Property Name="ID_Part" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Count" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supplier_Type">
+    <Key>
+      <PropertyRef Name="ID_Supplier_Type" />
+    </Key>
+    <Property Name="ID_Supplier_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="ID_Supplier" />
+    </Key>
+    <Property Name="ID_Supplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="INN" Type="int" Nullable="false" />
+    <Property Name="ID_Supplier_Type" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -10,18 +67,122 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
-  <EntityType Name="Users">
+  <EntityType Name="Warehouse_employees">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="ID_Warehouse_employee" />
     </Key>
-    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="varchar" MaxLength="65" Nullable="false" />
+    <Property Name="ID_Warehouse_employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Lastname" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="65" Nullable="false" />
   </EntityType>
-  <EntityContainer Name="Хранилище loginModelContainer">
+  <Association Name="FK_Calls_Masters">
+    <End Role="Masters" Type="Self.Masters" Multiplicity="0..1" />
+    <End Role="Calls" Type="Self.Calls" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Masters">
+        <PropertyRef Name="ID_Master" />
+      </Principal>
+      <Dependent Role="Calls">
+        <PropertyRef Name="ID_Master" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Masters">
+    <End Role="Masters" Type="Self.Masters" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Masters">
+        <PropertyRef Name="ID_Master" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Master" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Parts">
+    <End Role="Parts" Type="Self.Parts" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parts">
+        <PropertyRef Name="ID_Part" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Part" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Suppliers">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="ID_Supplier" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Supplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Warehouse employees">
+    <End Role="Warehouse_employees" Type="Self.Warehouse_employees" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouse_employees">
+        <PropertyRef Name="ID_Warehouse_employee" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Master" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suppliers_Supplier_Type">
+    <End Role="Supplier_Type" Type="Self.Supplier_Type" Multiplicity="1" />
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier_Type">
+        <PropertyRef Name="ID_Supplier_Type" />
+      </Principal>
+      <Dependent Role="Suppliers">
+        <PropertyRef Name="ID_Supplier_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище MasterBDModelContainer">
+    <EntitySet Name="Calls" EntityType="Self.Calls" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Masters" EntityType="Self.Masters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplier_Type" EntityType="Self.Supplier_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Warehouse_employees" EntityType="Self.Warehouse_employees" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Calls_Masters" Association="Self.FK_Calls_Masters">
+      <End Role="Masters" EntitySet="Masters" />
+      <End Role="Calls" EntitySet="Calls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Masters" Association="Self.FK_Orders_Masters">
+      <End Role="Masters" EntitySet="Masters" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Parts" Association="Self.FK_Orders_Parts">
+      <End Role="Parts" EntitySet="Parts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Suppliers" Association="Self.FK_Orders_Suppliers">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Warehouse employees" Association="Self.FK_Orders_Warehouse employees">
+      <End Role="Warehouse_employees" EntitySet="Warehouse_employees" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suppliers_Supplier_Type" Association="Self.FK_Suppliers_Supplier_Type">
+      <End Role="Supplier_Type" EntitySet="Supplier_Type" />
+      <End Role="Suppliers" EntitySet="Suppliers" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

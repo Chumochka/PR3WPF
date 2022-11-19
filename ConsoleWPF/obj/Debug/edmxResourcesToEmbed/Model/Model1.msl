@@ -1,8 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Хранилище loginModelContainer" CdmEntityContainer="loginEntities">
+  <EntityContainerMapping StorageEntityContainer="Хранилище MasterBDModelContainer" CdmEntityContainer="MasterEntities">
+    <EntitySetMapping Name="Calls">
+      <EntityTypeMapping TypeName="MasterBDModel.Calls">
+        <MappingFragment StoreEntitySet="Calls">
+          <ScalarProperty Name="ID_Call" ColumnName="ID_Call" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="Problem" ColumnName="Problem" />
+          <ScalarProperty Name="ID_Master" ColumnName="ID_Master" />
+          <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Masters">
+      <EntityTypeMapping TypeName="MasterBDModel.Masters">
+        <MappingFragment StoreEntitySet="Masters">
+          <ScalarProperty Name="ID_Master" ColumnName="ID_Master" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="MasterBDModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+          <ScalarProperty Name="ID_Master" ColumnName="ID_Master" />
+          <ScalarProperty Name="ID_Part" ColumnName="ID_Part" />
+          <ScalarProperty Name="ID_Warehouse_employee" ColumnName="ID_Warehouse_employee" />
+          <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parts">
+      <EntityTypeMapping TypeName="MasterBDModel.Parts">
+        <MappingFragment StoreEntitySet="Parts">
+          <ScalarProperty Name="ID_Part" ColumnName="ID_Part" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supplier_Type">
+      <EntityTypeMapping TypeName="MasterBDModel.Supplier_Type">
+        <MappingFragment StoreEntitySet="Supplier_Type">
+          <ScalarProperty Name="ID_Supplier_Type" ColumnName="ID_Supplier_Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="MasterBDModel.Suppliers">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="ID_Supplier" ColumnName="ID_Supplier" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="INN" ColumnName="INN" />
+          <ScalarProperty Name="ID_Supplier_Type" ColumnName="ID_Supplier_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="loginModel.sysdiagrams">
+      <EntityTypeMapping TypeName="MasterBDModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -12,14 +75,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="loginModel.Users">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Login" ColumnName="Login" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
+    <EntitySetMapping Name="Warehouse_employees">
+      <EntityTypeMapping TypeName="MasterBDModel.Warehouse_employees">
+        <MappingFragment StoreEntitySet="Warehouse_employees">
+          <ScalarProperty Name="ID_Warehouse_employee" ColumnName="ID_Warehouse_employee" />
           <ScalarProperty Name="Surname" ColumnName="Surname" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

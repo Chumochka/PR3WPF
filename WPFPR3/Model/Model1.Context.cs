@@ -13,10 +13,10 @@ namespace WPFPR3.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class loginEntities : DbContext
+    public partial class MasterEntities : DbContext
     {
-        public loginEntities()
-            : base("name=loginEntities")
+        public MasterEntities()
+            : base("name=MasterEntities")
         {
         }
     
@@ -25,7 +25,13 @@ namespace WPFPR3.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Calls> Calls { get; set; }
+        public virtual DbSet<Masters> Masters { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Parts> Parts { get; set; }
+        public virtual DbSet<Supplier_Type> Supplier_Type { get; set; }
+        public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Warehouse_employees> Warehouse_employees { get; set; }
     }
 }

@@ -12,12 +12,21 @@ namespace ConsoleWPF.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Suppliers
     {
-        public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Surname { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Suppliers()
+        {
+            this.Orders = new HashSet<Orders>();
+        }
+    
+        public int ID_Supplier { get; set; }
         public string Name { get; set; }
+        public int INN { get; set; }
+        public int ID_Supplier_Type { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual Supplier_Type Supplier_Type { get; set; }
     }
 }

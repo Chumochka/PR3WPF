@@ -9,33 +9,49 @@ namespace WPFPR3
 {
     class Helper
     {
-        private static loginEntities s_loginEntities;
-        public static loginEntities GetContext()
+        private static MasterEntities s_masterEntities;
+        public static MasterEntities GetContext()
         {
-            if (s_loginEntities == null)
+            if (s_masterEntities == null)
             {
-                s_loginEntities = new loginEntities();
+                s_masterEntities = new MasterEntities();
             }
-            return s_loginEntities;
+            return s_masterEntities;
         }
-        public bool SearchUsers(string login, string password)
+        public string SearchUsers(string login, string password)
         {
-            var users = s_loginEntities.Users.Where(x => x.Login == login && x.Password == password);
-            if (users.Count() == 1) { return true; }
-            else { return false; }
-        }
-        public bool CreateUsers(Users users)
-        {
-            if (SearchUsers(users.Login, users.Password))
+            var users = s_masterEntities.Masters.Where(x => x.Login == login).FirstOrDefault();
+            var users1 = s_masterEntities.Warehouse_employees.Where(x => x.Login == login).FirstOrDefault();
+            if (users == null && users1 == null)
             {
-                return false;
+                return "Такого пользователя нет.";
             }
             else
             {
-                s_loginEntities.Users.Add(users);
-                s_loginEntities.SaveChanges();
-                return true;
+                if (users == null)
+                {
+                    if (users1.Password == password)
+                    {
+                        return "Вы авторизовались, как работник склада";
+                    }
+                    else
+                    {
+                        return "Неправильно введён пароль.";
+                    }
+                }
+                else
+                {
+                    if (users.Password == password)
+                    {
+                        return "Вы авторизовались, как мастер";
+                    }
+                    else
+                    {
+                        return "Неправильно введён пароль.";
+                    }
+                }
             }
         }
+
     }
 }

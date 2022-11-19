@@ -30,6 +30,6 @@
         <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Name="txtBoxLogin" VerticalAlignment="Center" TextBlock.FontSize="20" Height="29"></TextBox>
         <PasswordBox Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Name="txtBoxPassword" VerticalAlignment="Center" FontSize="20" Height="29"></PasswordBox>
         <Button Grid.Column="2" Name="btnAuthorization" Content="Авторизоваться" Click="btnAuthorization_Click" Grid.Row="4" VerticalAlignment="Center"
-                Height="30" FontSize="20" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+                Height="30" FontSize="20" HorizontalAlignment="Center" Grid.ColumnSpan="2" IsDefault="True"/>
     </Grid>
 </Window>

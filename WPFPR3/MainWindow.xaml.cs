@@ -31,16 +31,27 @@ namespace WPFPR3
             string login = txtBoxLogin.Text;
             string password = txtBoxPassword.Password;
             HashPasswords.Hash hash = new HashPasswords.Hash();
-            password = hash.hashing(password);
             Helper helper = new Helper();
-            loginEntities db = Helper.GetContext();
-            if (helper.SearchUsers(login,password))
+            MasterEntities db = Helper.GetContext();
+            if (login == "")
             {
-                MessageBox.Show("Вы авторизировались");
+                if (password == "")
+                {
+                    MessageBox.Show("Введите логин и пароль");
+                }
+                else
+                {
+                    MessageBox.Show("Введите логин");
+                }
+            }else if(password == "")
+            {
+                MessageBox.Show("Введите пароль");
             }
             else
             {
-                MessageBox.Show("Неправильный логин или пароль");
+                password = hash.hashing(password);
+                string result = helper.SearchUsers(login, password);
+                MessageBox.Show(result);
             }
         }
     }

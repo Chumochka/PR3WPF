@@ -11,33 +11,79 @@ namespace ConsoleWPF
     {
         static void Main(string[] args)
         {
-            Console.Write("Создание новой учетной записи для пользователя\n\nВведите имя пользователя: ");
-            string name = Console.ReadLine();
-            Console.Write("Введите фамилию пользователя: ");
-            string surname = Console.ReadLine();
-            Console.Write("Введите логин пользователя: ");
-            string login = Console.ReadLine();
-            Console.Write("Введите пароль пользователя: ");
-            string password = Console.ReadLine();
             HashPasswords.Hash hash = new HashPasswords.Hash();
-            password = hash.hashing(password);
-            Console.WriteLine("Хешированный пароль пользователя: " + password);
             Helper helper = new Helper();
-            loginEntities db = Helper.GetContext();
-            Users users = new Users();
-            users.Login = login;
-            users.Password = password;
-            users.Name = name;
-            users.Surname = surname;
-            if (helper.CreateUsers(users))
+            MasterEntities db = Helper.GetContext();
+            Console.Write("Создание новой учетной записи для пользователя\n\nВыберите роль (1 - мастер, 2 - работник склада): ");
+            int role = 0;
+            try
             {
-                Console.WriteLine("Учетная запись добавлена");
+                role = Convert.ToInt32(Console.ReadLine());
+                while (role!=1 && role !=2){
+                    Console.Write("Неверный вариант роли. Выберите роль (1 - мастер, 2 - работник склада): ");
+                    role = Convert.ToInt32(Console.ReadLine());
+                }
+                Console.Write("Введите имя пользователя: ");
+                string name = Console.ReadLine();
+                Console.Write("Введите фамилию пользователя: ");
+                string surname = Console.ReadLine();
+                Console.Write("Введите отчество пользователя (при отсутствии нажмите Enter): ");
+                string lastname = Console.ReadLine();
+                Console.Write("Введите телефон пользователя: ");
+                string phone = Console.ReadLine();
+                Console.Write("Введите логин пользователя: ");
+                string login = Console.ReadLine();
+                Console.Write("Введите пароль пользователя: ");
+                string password = Console.ReadLine();
+                password = hash.hashing(password);
+                Console.WriteLine("Хешированный пароль пользователя: " + password);
+                if (role == 1)
+                {
+                    Console.Write("Введите специализацию пользователя: ");
+                    string spec = Console.ReadLine();
+                    Masters users = new Masters();
+                    users.Login = login;
+                    users.Password = password;
+                    users.Name = name;
+                    users.Surname = surname;
+                    users.Lastname = lastname;
+                    users.Phone = phone;
+                    users.Specialization = spec;
+                    if (helper.CreateUsers(users))
+                    {
+                        Console.WriteLine("Учетная запись добавлена");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Такой пользователь уже существует");
+                    }
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Warehouse_employees users = new Warehouse_employees();
+                    users.Login = login;
+                    users.Password = password;
+                    users.Name = name;
+                    users.Surname = surname;
+                    users.Lastname = lastname;
+                    users.Phone = phone;
+                    if (helper.CreateUsers(users))
+                    {
+                        Console.WriteLine("Учетная запись добавлена");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Такой пользователь уже существует");
+                    }
+                    Console.ReadLine();
+                }
             }
-            else
+            catch (FormatException)
             {
-                Console.WriteLine("Такой пользователь уже существует");
+                Console.WriteLine("Ошибка ввода. Вам нужно ввести «1» или «2».");
+                Console.ReadLine();
             }
-            Console.ReadLine();
         }
     }
 }

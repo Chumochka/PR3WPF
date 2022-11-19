@@ -7,17 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPFPR3.Model
+namespace ConsoleWPF.Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Orders
     {
-        public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string Surname { get; set; }
-        public string Name { get; set; }
+        public int ID_Order { get; set; }
+        public int ID_Master { get; set; }
+        public int ID_Part { get; set; }
+        public int ID_Warehouse_employee { get; set; }
+        public int ID_Supplier { get; set; }
+    
+        public virtual Masters Masters { get; set; }
+        public virtual Parts Parts { get; set; }
+        public virtual Suppliers Suppliers { get; set; }
+        public virtual Warehouse_employees Warehouse_employees { get; set; }
     }
 }
